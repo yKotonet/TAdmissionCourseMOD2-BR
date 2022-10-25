@@ -78,8 +78,6 @@ class Dinosaur:
             self.dino_rect.x = X_POS
             self.duck_vel -= 10
         if self.duck_vel < -DUCK_VEL:
-            self.dino_rect.y = 340
-            self.dino_rect.x = X_POS
             self.dino_duck = False
             self.duck_vel = DUCK_VEL
         self.step_index += 1
