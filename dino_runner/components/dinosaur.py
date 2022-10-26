@@ -38,11 +38,6 @@ class Dinosaur:
             self.dino_run = False
             self.dino_duck = True
 
-        if not self.dino_jump and not self.dino_duck:
-            self.dino_jump = False
-            self.dino_run = True
-            self.dino_duck = False
-
         if user_input[pygame.K_UP] and not self.dino_jump and not self.dino_duck:
             self.dino_jump = True
             self.dino_run = False
