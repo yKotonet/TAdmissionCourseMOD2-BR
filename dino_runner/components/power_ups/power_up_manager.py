@@ -1,6 +1,8 @@
+from asyncio import shield
 import random
 import pygame
 from dino_runner.components.power_ups.shield import Shield
+from dino_runner.components.power_ups.slow import Slow
 
 
 class PowerUpManager:
@@ -8,10 +10,15 @@ class PowerUpManager:
         self.power_ups = []
         self.when_appears = 0
 
+        self.randomization = random.randint(0, 1)
+        self.power_upss = [Shield, Slow]
+        self.power_ups_random = self.power_upss[self.randomization]
+
     def generate_power_up(self, score):
+
         if len(self.power_ups) == 0 and self.when_appears == score:
             self.when_appears += random.randint(200, 300)
-            self.power_ups.append(Shield())
+            self.power_ups.append(self.power_ups_random)
 
     def update(self, score, game_speed, player):
         self.generate_power_up(score)

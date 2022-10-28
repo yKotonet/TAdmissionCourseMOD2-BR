@@ -26,11 +26,13 @@ class Game:
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
+        self.highscore_show = -1
 
     def execute(self):
         self.running = True
         while self.running:
             if not self.playing:
+                self.highscore()
                 self.show_menu()
 
         pygame.display.quit()
@@ -50,6 +52,7 @@ class Game:
         self.power_up_manager.reset_power_ups()
         self.game_speed = 20
         self.score = 0
+        
         while self.playing:
             self.events()
             self.update()
@@ -74,6 +77,10 @@ class Game:
             self.game_speed += 5
 
         self.draw_score()
+        
+    def highscore(self):
+        if self.score > self.highscore_show:
+            self.highscore_show = self.score
 
     def draw(self):
         self.clock.tick(FPS)
@@ -139,8 +146,9 @@ class Game:
 
             self.texting("Press any key to start again",
                          (half_screen_width, half_screen_height))
-            self.texting((f"Score: {self.score}"), (1000, 50))
+            self.texting((f"Last Score: {self.score}"), (1000, 50))
             self.texting((f"Death Count: {self.death_count}"), (1000, 85))
+            self.texting((f"HighScore: {self.highscore_show}"), (1000, 120))
 
         pygame.display.update()
         self.handle_events_on_menu()
